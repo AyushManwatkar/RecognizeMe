@@ -3,7 +3,7 @@
 <p>Explore how to build a Facial Recognition App on AWS using powerful services such as Amazon Rekognition, AWS Lambda, Amazon DynamoDB, Amazon API Gateway, and Amazon S3 with a React front end. Let’s dive into the step-by-step process of creating this application.</p>
 
 <h2>Architecture</h2>
-<img src="architecture.jpg" alt="Architecture">
+<img src="Architecture.jpg" alt="Architecture">
 
 <h2>Flows</h2>
 
