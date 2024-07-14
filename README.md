@@ -56,7 +56,27 @@
     <li>Review and launch your instance, creating a new key pair or using an existing one for SSH access.</li>
 </ol>
 
-<h3>Step 2: Connect to Your EC2 Instance</h3>
+<h3>Step 2: Attach IAM Role to EC2 Instance</h3>
+<ol>
+    <li>Open the IAM Dashboard in the AWS Management Console.</li>
+    <li>Create a new IAM role with the following policies:
+        <ul>
+            <li>AmazonS3FullAccess</li>
+            <li>AmazonDynamoDBFullAccess</li>
+            <li>AmazonRekognitionFullAccess</li>
+        </ul>
+    </li>
+    <li>Attach the IAM role to your EC2 instance.</li>
+</ol>
+
+<h3>Step 3: Upload Images to S3 Bucket</h3>
+<ol>
+    <li>Ensure you have an S3 bucket named <code>employee-img</code>, a Rekognition collection named <code>employees</code> (created using AWS CLI), and a DynamoDB table named <code>employees_collection</code> with the primary key <code>RekognitionId</code> (type string).</li>
+    <li>Run the <code>putimages.py</code> script to upload images to the S3 bucket. The script will assign Rekognition IDs and store them in the DynamoDB table:
+<pre><code>python3 putimages.py</code></pre></li>
+</ol>
+
+<h3>Step 4: Connect to Your EC2 Instance</h3>
 <ol>
     <li>Use an SSH client to connect to your instance. Replace <code>your-key.pem</code> with your key file and <code>your-ec2-public-dns</code> with your instance's public DNS.</li>
     <li>Open CMD:
@@ -70,7 +90,7 @@
     </li>
 </ol>
 
-<h3>Step 3: Install Necessary Software</h3>
+<h3>Step 5: Install Necessary Software</h3>
 <ol>
     <li>Update the instance and install required packages (PuTTY):
 <pre><code>sudo yum update -y
@@ -80,7 +100,7 @@ sudo yum install git -y</code></pre></li>
 <pre><code>pip3 install Flask boto3</code></pre></li>
 </ol>
 
-<h3>Step 4: Set Up the Flask Application</h3>
+<h3>Step 6: Set Up the Flask Application</h3>
 <ol>
     <li>Create a directory for your app and navigate into it:
 <pre><code>mkdir app
@@ -93,32 +113,13 @@ cd templates</code></pre></li>
     <li>Create and edit <code>result.html</code>.</li>
 </ol>
 
-<h3>Step 5: Run the Flask Application</h3>
+<h3>Step 7: Run the Flask Application</h3>
 <ol>
     <li>Navigate to your app directory and run the Flask app:
 <pre><code>export FLASK_APP=app.py
 flask run --host=0.0.0.0</code></pre></li>
 </ol>
 
-<h3>Step 6: Attach IAM Role to EC2 Instance</h3>
-<ol>
-    <li>Open the IAM Dashboard in the AWS Management Console.</li>
-    <li>Create a new IAM role with the following policies:
-        <ul>
-            <li>AmazonS3FullAccess</li>
-            <li>AmazonDynamoDBFullAccess</li>
-            <li>AmazonRekognitionFullAccess</li>
-        </ul>
-    </li>
-    <li>Attach the IAM role to your EC2 instance.</li>
-</ol>
-
-<h3>Step 7: Upload Images to S3 Bucket</h3>
-<ol>
-    <li>Ensure you have an S3 bucket named <code>employee-img</code>, a Rekognition collection named <code>employees</code> (created using AWS CLI), and a DynamoDB table named <code>employees_collection</code> with the primary key <code>RekognitionId</code> (type string).</li>
-    <li>Run the <code>putimages.py</code> script to upload images to the S3 bucket. The script will assign Rekognition IDs and store them in the DynamoDB table:
-<pre><code>python3 putimages.py</code></pre></li>
-</ol>
 
 <h3>Step 8: Test the Application</h3>
 <ol>
