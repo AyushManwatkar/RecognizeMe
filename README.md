@@ -59,9 +59,9 @@
 <h3>Step 2: Connect to Your EC2 Instance</h3>
 <ol>
     <li>Use an SSH client to connect to your instance. Replace <code>your-key.pem</code> with your key file and <code>your-ec2-public-dns</code> with your instance's public DNS.</li>
-    <li>For Linux/macOS:
-<pre><code>ssh -i your-key.pem ec2-user@your-ec2-public-dns</code></pre></li>
-    <li>For Windows (using PuTTY):
+    <li>Open CMD:
+<pre><code>ssh -i path\to\your-key.ppk path\to\ec2-user@your-ec2-public-dns</code></pre></li>
+    <li>In PuTTY:
         <ul>
             <li>Open PuTTY and enter <code>ec2-user@your-ec2-public-dns</code> in the Host Name field.</li>
             <li>Under Connection -> SSH -> Auth, browse and select your <code>.ppk</code> key file.</li>
@@ -72,7 +72,7 @@
 
 <h3>Step 3: Install Necessary Software</h3>
 <ol>
-    <li>Update the instance and install required packages:
+    <li>Update the instance and install required packages (PuTTY):
 <pre><code>sudo yum update -y
 sudo yum install python3 -y
 sudo yum install git -y</code></pre></li>
