@@ -1,30 +1,48 @@
 <h1>RecognizeMe: Facial Recognition App on AWS</h1>
 
-<p>Explore how to build a Facial Recognition App on AWS using powerful services such as Amazon Rekognition, AWS Lambda, Amazon DynamoDB, Amazon API Gateway, and Amazon S3 with a React front end. Let’s dive into the step-by-step process of creating this application.</p>
+<p>This repository outlines the architecture of a Facial Recognition App using AWS services. The following is a step-by-step explanation of the flow:</p>
 
-<h2>Architecture</h2>
-<img src="Architecture.jpg" alt="Architecture">
+<h2>Architecture Diagram</h2>
 
-<h2>Flows</h2>
+<img src="Architecture.jpg" alt="Architecture Diagram">
 
-<h3>Flow #1: Registration Flow</h3>
+<h2>Flow Explanation</h2>
+
 <ol>
-    <li><strong>Employee Image Upload</strong>: Employee pictures are uploaded to the 'employee-bucket-image' S3 bucket.</li>
-    <li><strong>Trigger Registration Lambda</strong>: The upload triggers the Registration Lambda function.</li>
-    <li><strong>Index Employee Pictures</strong>: The Registration Lambda function uses Amazon Rekognition to index the employee pictures.</li>
-    <li><strong>Generate Rekognition ID</strong>: This process generates a unique Rekognition ID for each employee.</li>
-    <li><strong>Store Employee Data</strong>: The employee's information, including the Rekognition ID, is stored in a DynamoDB table.</li>
+    <li><strong>User's Picture Upload (EC2):</strong>
+        <p>Users upload their pictures via an application running on an Amazon EC2 instance.</p>
+    </li>
+    <li><strong>Storage (S3):</strong>
+        <p>The uploaded pictures are stored in an Amazon S3 bucket. S3 is used for scalable storage of images.</p>
+    </li>
+    <li><strong>Trigger (S3 to Lambda):</strong>
+        <p>An event in S3 (such as a new image upload) triggers an AWS Lambda function. The Lambda function is configured with the necessary IAM (Identity and Access Management) permissions to access the S3 bucket and other AWS resources.</p>
+    </li>
+    <li><strong>Processing (Lambda):</strong>
+        <p>The Lambda function processes the image, which includes invoking the Amazon Rekognition service to analyze the image. Rekognition is a machine learning service that can perform facial analysis and recognition.</p>
+    </li>
+    <li><strong>Analysis (Rekognition):</strong>
+        <p>Amazon Rekognition analyzes the image to identify faces and compare them against a stored collection of faces.</p>
+    </li>
+    <li><strong>Data Storage (DynamoDB):</strong>
+        <p>The results from Rekognition, such as facial analysis data or identification results, are stored in an Amazon DynamoDB table. DynamoDB is a fast and flexible NoSQL database service.</p>
+    </li>
+    <li><strong>Result Handling:</strong>
+        <p>The application can then retrieve the results from DynamoDB to display or further process them as needed.</p>
+    </li>
 </ol>
 
-<h3>Flow #2: Authentication Flow</h3>
-<ol>
-    <li><strong>Visitor/Employee Image Upload</strong>: A visitor or employee uploads an image using the React front end.</li>
-    <li><strong>Call API Gateway</strong>: The front end calls the API Gateway to handle the upload.</li>
-    <li><strong>Store Image in Visitor S3 Bucket</strong>: The image is stored in the 'visitor-bucket-image' S3 bucket.</li>
-    <li><strong>Trigger Authentication Lambda</strong>: The upload triggers the Authentication Lambda function.</li>
-    <li><strong>Generate Unique Key</strong>: The Authentication Lambda function uses Amazon Rekognition to generate a unique key.</li>
-    <li><strong>Check Rekognition ID</strong>: The Rekognition ID is checked against the entries in the DynamoDB table for authentication.</li>
-</ol>
+<h3>Summary of the Services Used:</h3>
+<ul>
+    <li><strong>Amazon EC2:</strong> Hosts the application where users upload images.</li>
+    <li><strong>Amazon S3:</strong> Stores the uploaded images.</li>
+    <li><strong>AWS Lambda:</strong> Handles the processing of images when they are uploaded to S3.</li>
+    <li><strong>Amazon Rekognition:</strong> Analyzes the images for facial recognition.</li>
+    <li><strong>Amazon DynamoDB:</strong> Stores the results of the facial recognition analysis.</li>
+</ul>
+
+<p>This architecture leverages AWS services to create a scalable, serverless facial recognition application.</p>
+
 
 <h2>Getting Started</h2>
     <p>This guide provides step-by-step instructions for deploying a facial recognition application using AWS services such as EC2, Lambda, S3, DynamoDB, and Rekognition.</p>
